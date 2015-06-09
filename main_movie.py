@@ -1,8 +1,10 @@
 import monty_python
 import movie
 
+"""This file contains the all the objects and data of the movies"""
 
-'''Initialing the objects and assigning the values'''
+# Initialing the objects and assigning the values
+
 madmax = movie.Movie(
     'Mad Max Fury Road',
     "In a stark desert landscape where humanity is broken, two rebels\
@@ -12,8 +14,8 @@ madmax = movie.Movie(
     5,
     ' Tom Hardy, Charlize Theron, Nicholas Hoult',
     '15 May 2015',
-    )
-'''Initialing the objects and assigning the values'''
+)
+# Initialing the objects and assigning the values
 inception = movie.Movie(
     'Inception',
     'A thief who steals corporate secrets through use of \
@@ -24,8 +26,8 @@ inception = movie.Movie(
     5,
     ' Leonardo DiCaprio, Joseph.',
     '10 June 2010',
-    )
-'''Initialing the objects and assigning the values'''
+)
+# Initialing the objects and assigning the values
 bourn_identity = movie.Movie(
     'Bourne Identity',
     'A man is picked up by a fishing boat, bullet-riddled and \
@@ -36,8 +38,8 @@ bourn_identity = movie.Movie(
     4,
     ' Franka Potente, Matt Damon',
     '15 September 2002',
-    )
-'''Initialing the objects and assigning the values'''
+)
+# Initialing the objects and assigning the values
 beautiful_mind = movie.Movie(
     'Beautiful Mind ',
     'After a brilliant but asocial mathematician accepts secret \
@@ -47,8 +49,8 @@ beautiful_mind = movie.Movie(
     4,
     'Russell Crowe, Ed Harris, Jennifer Connelly',
     '4 June 2001',
-    )
-'''Initialing the objects and assigning the values'''
+)
+# Initialing the objects and assigning the values
 avengers = movie.Movie(
     'The Avengers',
     "Earth's mightiest heroes must come together and learn to\
@@ -58,7 +60,8 @@ avengers = movie.Movie(
     3,
     ' Robert Downey Jr., Chris Evans, Scarlett Johansson',
     '24 May 2012',
-    )
+)
+# Initialing the objects and assigning the values
 iron_man = movie.Movie(
     'Iron man',
     'After being held captive in an Afghan cave, an industrialist\
@@ -66,19 +69,19 @@ iron_man = movie.Movie(
     'http://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG',
     'https://www.youtube.com/watch?v=uy6zdEbxjuU',
     4, ' Robert Downey Jr., Gwyneth Paltrow', '12 July 2008',
-     )
-'''Initialing the objects and assigning the values'''
+)
+# Initialing the objects and assigning the values
 batman = movie.Movie(
     'Bat-man',
     'Eight years after the Joker s reign of anarchy, the Dark\
      Knight is forced to return from his imposed exile to save Gotham City. ',
-    'http://www.wired.com/images_blogs/underwire/2012/07/TDK_P3_1280.jpg', 
+    'http://www.wired.com/images_blogs/underwire/2012/07/TDK_P3_1280.jpg',
     'https://www.youtube.com/watch?v=GokKUqLcvD8',
     4,
     'Christian Bale, Tom Hardy ',
     '05 June 2012',
-     )
-'''Initialing the objects and assigning the values'''
+)
+# Initialing the objects and assigning the values
 departed = movie.Movie(
     'The Departed',
     'An undercover cop and a mole in the police attempt to identify\
@@ -88,8 +91,8 @@ departed = movie.Movie(
     4,
     'Leonardo DiCaprio, Matt Damon, Jack Nicholson',
     '03 September 2006',
-    )
-'''Creating an Array and assigning the values'''  
+)
+# Creating an Array and assigning the values
 movies = [
     madmax,
     bourn_identity,
@@ -99,6 +102,6 @@ movies = [
     beautiful_mind,
     batman,
     inception,
-    ]
-'''Call a method of class monty_python'''    
+]
+# Call a method of class monty_python
 monty_python.open_movies_page(movies)
