@@ -1,104 +1,171 @@
-import monty_python
-import movie
+import webbrowser 
+import os
+import re
 
+# Styles and scripting for the page
+main_page_head = ''' <!--Assigning HTML code to movie_title_content, to be used in Phython code -->
+<head>
+    <meta charset="utf-8">
+    <title>Monty Phython!</title>
+    <!-- Bootstrap 3 -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"> 
+    <!--Link/path to Bootstarp-CSS code that is saved on Bootstrap cloud-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <style type="text/css" media="screen">
+        body {
+            padding-top: 70px;
+        }
+        #trailer .modal-dialog {
+            margin-top: 200px;
+            width: 640px;
+            height: 480px;
+        }
+        .hanging-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            z-index: 9001;
+        }
+        #trailer-video {
+            width: 100%;
+            height: 100%;
+        }
+        .movie-tile {
+            padding-top: 50px;
+            width: 250px;
+           
+           }
+        .movie-tile:hover {
+            background-color: #EEE;
+            cursor: pointer;
+        }
+        .scale-media {
+            padding-bottom: 56.25%;
+            position: relative;
+        }
+        .scale-media iframe {
+            border: none;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            background-color: white;
+        }
+    </style>
+    <!--javascript code-->
+    <script type="text/javascript" charset="utf-8">
+        // Pause the video when the modal is closed
+        $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
+            // Remove the src so the player itself gets removed, as this is the only
+            // reliable way to ensure the video stops playing in IE
+            $("#trailer-video-container").empty();
+        });
+        // Start playing the video whenever the trailer modal is opened
+        $(document).on('click', '.movie-tile', function (event) {
+            var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
+            var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
+            $("#trailer-video-container").empty().append($("<iframe></iframe>", {
+              'id': 'trailer-video',
+              'type': 'text-html',
+              'src': sourceUrl,
+              'frameborder': 0
+            }));
+        });
+        // Animate in the movies when the page loads
+        $(document).ready(function () {
+          $('.movie-tile').hide().first().show("fast", function showNext() {
+            $(this).next("div").show("fast", showNext);
+          });
+        });
+    </script>
+</head>
+'''
 
-'''Initialing the objects and assigning the values'''
-madmax = movie.Movie(
-    'Mad Max Fury Road',
-    "In a stark desert landscape where humanity is broken, two rebels\
-     just might be able to restore order",
-    'http://ecx.images-amazon.com/images/I/91xy4RlK98L._SL1425_.jpg',
-    'https://www.youtube.com/watch?v=hEJnMQG9ev8',
-    5,
-    ' Tom Hardy, Charlize Theron, Nicholas Hoult',
-    '15 May 2015',
-    )
-'''Initialing the objects and assigning the values'''
-inception = movie.Movie(
-    'Inception',
-    'A thief who steals corporate secrets through use of \
-    dream-sharing technology is given the inverse task of\
-     planting an idea into the mind of a CEO.',
-    'http://www.hdwallpapers.in/walls/2010_inception_movie-wide.jpg',
-    'https://www.youtube.com/watch?v=66TuSJo4dZM',
-    5,
-    ' Leonardo DiCaprio, Joseph.',
-    '10 June 2010',
-    )
-'''Initialing the objects and assigning the values'''
-bourn_identity = movie.Movie(
-    'Bourne Identity',
-    'A man is picked up by a fishing boat, bullet-riddled and \
-    suffering from amnesia, before racing to elude assassins \
-     and regain his memory.',
-    'http://img.soundtrackcollector.com/cd/large/Bourne_Identity_VSD6367.jpg',
-    'https://www.youtube.com/watch?v=F8-deZCXEig',
-    4,
-    ' Franka Potente, Matt Damon',
-    '15 September 2002',
-    )
-'''Initialing the objects and assigning the values'''
-beautiful_mind = movie.Movie(
-    'Beautiful Mind ',
-    'After a brilliant but asocial mathematician accepts secret \
-    work in cryptography, his life takes a turn for the nightmarish.',
-    'http://goo.gl/wZDMSz',
-    'https://www.youtube.com/watch?v=2d_dtTZQyUM',
-    4,
-    'Russell Crowe, Ed Harris, Jennifer Connelly',
-    '4 June 2001',
-    )
-'''Initialing the objects and assigning the values'''
-avengers = movie.Movie(
-    'The Avengers',
-    "Earth's mightiest heroes must come together and learn to\
-    fight as a team, to defeat Loki .",
-    'http://media.comicbook.com/wp-content/uploads/2013/06/avengers.jpg',
-    'https://www.youtube.com/watch?v=JAUoeqvedMo',
-    3,
-    ' Robert Downey Jr., Chris Evans, Scarlett Johansson',
-    '24 May 2012',
-    )
-iron_man = movie.Movie(
-    'Iron man',
-    'After being held captive in an Afghan cave, an industrialist\
-     creates a unique weaponized suit of armor to fight evil.',
-    'http://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG',
-    'https://www.youtube.com/watch?v=uy6zdEbxjuU',
-    4, ' Robert Downey Jr., Gwyneth Paltrow', '12 July 2008',
-     )
-'''Initialing the objects and assigning the values'''
-batman = movie.Movie(
-    'Bat-man',
-    'Eight years after the Joker s reign of anarchy, the Dark\
-     Knight is forced to return from his imposed exile to save Gotham City. ',
-    'http://www.wired.com/images_blogs/underwire/2012/07/TDK_P3_1280.jpg', 
-    'https://www.youtube.com/watch?v=GokKUqLcvD8',
-    4,
-    'Christian Bale, Tom Hardy ',
-    '05 June 2012',
-     )
-'''Initialing the objects and assigning the values'''
-departed = movie.Movie(
-    'The Departed',
-    'An undercover cop and a mole in the police attempt to identify\
-     each other while infiltrating an Irish gang in South Boston.',
-    'http://www.thedeparted.net/images/the_departed_poster.jpg',
-    'https://www.youtube.com/watch?v=RqWJho4zSFc',
-    4,
-    'Leonardo DiCaprio, Matt Damon, Jack Nicholson',
-    '03 September 2006',
-    )
-'''Creating an Array and assigning the values'''  
-movies = [
-    madmax,
-    bourn_identity,
-    iron_man,
-    departed,
-    avengers,
-    beautiful_mind,
-    batman,
-    inception,
-    ]
-'''Call a method of class monty_python'''    
-monty_python.open_movies_page(movies)
+# The main page layout and title bar
+main_page_content =''' <!--Assigning HTML code to movie_title_content,
+ to be used in Phython code -->
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <!-- Trailer Video Modal -->
+    <div class="modal" id="trailer">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            <img src="https://goo.gl/D051RO"/>
+          </a>
+          <div class="scale-media" id="trailer-video-container">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Page Content -->
+    <div class="container">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Khan's Top Movies </a>
+             <!-- Comment: To change the title of the page -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      {movie_tiles}
+    </div>
+  </body>
+</html>
+'''
+
+# A single movie entry html template
+movie_tile_content = ''' <!--Assigning HTML code to movie_title_content, to be used in Phython code -->
+<div class="col-sm-2 col-md-4 col-lg-6 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+   <img src="{poster_image_url}" width="220" height="342">
+   <h3>{movie_title}</h3>
+   <h6> {movie_story}</h6>
+   <h6><b>Starring</b>: {movie_actors}</h6> <!--Comments:New added attribute Starring-->   
+   <h6><b>Release date</b>: {movie_release}</h6> <!--Comments:New added attribute Release date -->      
+   <button type="button" class="btn btn-warning">Rating:{movie_rating}</button> 
+   <!--Comments: Button created by calling class btn and btn-color from bootstrap-->
+</div>
+'''
+
+def create_movie_tiles_content(movies):
+    # The HTML content for this section of the page
+    content = ''
+    for movie in movies:
+        # Extract the youtube ID from the url
+        youtube_id_match = re.search(r'(?<=v=)[^&#]+', movie.trailer_youtube_url)
+        youtube_id_match = youtube_id_match or re.search(r'(?<=be/)[^&#]+', movie.trailer_youtube_url)
+        trailer_youtube_id = youtube_id_match.group(0) if youtube_id_match else None
+        
+      # Append the tile for the movie with its content filled in
+        content += movie_tile_content.format(
+            movie_title=movie.title,
+            poster_image_url=movie.poster_image_url,
+            trailer_youtube_id=trailer_youtube_id,
+            movie_story=movie.storyline,
+            movie_actors=movie.actors,
+            movie_release =movie.release,
+            movie_rating=movie.rating
+                   )
+    return content
+
+def open_movies_page(movies):
+  # Create or overwrite the output file
+  output_file = open('Khan_movies.html', 'w')
+
+  # Replace the placeholder for the movie tiles with the actual dynamically generated content
+  rendered_content = main_page_content.format(movie_tiles=create_movie_tiles_content(movies))
+
+  # Output the file
+  output_file.write(main_page_head + rendered_content)
+  output_file.close()
+
+  # open the output file in the browser
+  url = os.path.abspath(output_file.name)
+  webbrowser.open('file://' + url, new=2) # open in a new tab, if possible
