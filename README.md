@@ -2,7 +2,7 @@ Khan's Movies- list of favourite movies Version 1.0 06/05/2015
 
 General Usage Note: 
 
-Things your neend:
+Things you need:
  1. Internet connection.
  2. Windows/Mac computer with any poplular web browser.
  3. Python 2.7.9 or later insatalled on computer.
