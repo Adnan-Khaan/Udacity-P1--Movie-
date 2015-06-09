@@ -17,7 +17,7 @@ Please follow simple steps to execute the application.
 
 2. Open the Python GUI and open main_movie.py, then click-->RUN tab--> Run Module.
 
-3. If all goes well, your Web browser will automatically open and display Khan's Movies. You can click on the movies and enjoy the trailer. Enjoy!
+3. If all goes well, web browser will automatically will display Khan's Movies. You can click on the movies and enjoy the trailer. Enjoy!
 
 Feel free to contact me should you have any question or feedback.
 email: muhd.adnan@gmail.com
@@ -25,4 +25,3 @@ email: muhd.adnan@gmail.com
 
 Thanks
 Muhammmad A Khan
-
